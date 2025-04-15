@@ -90,16 +90,16 @@ Data preparation ini bertujuan untuk memastikan dataset bersih dan siap digunaka
 Pada tahap pemodelan, saya akan memulai dengan Random Forest Regressor sebagai model utama untuk memprediksi jumlah penyewaan sepeda. Setelah itu, saya akan membandingkan performanya dengan beberapa model lain, yaitu Gradient Boosting Regressor, Linear Regression, dan K-Nearest Neighbors (KNN) untuk memastikan apakah Random Forest sudah menjadi pilihan terbaik.
 
 1. Random Forest Regressor (Model Utama)
-Pada tahap pemodelan, saya menggunakan Random Forest Regressor sebagai model utama karena kemampuannya dalam menangani data yang non-linear dan kompleks. Random Forest menggabungkan banyak pohon keputusan untuk menghasilkan prediksi yang lebih stabil dan akurat. Kelebihan dari model ini adalah kemampuannya untuk menangani data dengan banyak fitur dan variabel, serta tidak rentan terhadap overfitting jika dibandingkan dengan model pohon keputusan tunggal.
+Pada tahap pemodelan, saya menggunakan Random Forest Regressor sebagai model utama karena kemampuannya dalam menangani data yang non-linear dan kompleks. Random Forest menggabungkan banyak pohon keputusan untuk menghasilkan prediksi yang lebih stabil dan akurat. Kelebihan dari model ini adalah kemampuannya untuk menangani data dengan banyak fitur dan variabel, serta tidak rentan terhadap overfitting jika dibandingkan dengan model pohon keputusan tunggal. Namun, salah satu kekurangan dari Random Forest adalah waktu pelatihan yang cenderung lebih lama, terutama ketika jumlah pohon yang digunakan cukup banyak.
 
 2. Gradient Boosting
-Algoritma ini bekerja dengan membangun model secara bertahap dan memperbaiki kesalahan dari model sebelumnya melalui proses boosting. Kelebihan dari GradientBoosting adalah kemampuannya dalam menghasilkan prediksi yang sangat akurat, terutama untuk data kompleks.
+Algoritma ini bekerja dengan membangun model secara bertahap dan memperbaiki kesalahan dari model sebelumnya melalui proses boosting. Kelebihan dari GradientBoosting adalah kemampuannya dalam menghasilkan prediksi yang sangat akurat, terutama untuk data kompleks. Namun, salah satu kekurangan dari Random Forest adalah waktu pelatihan yang cenderung lebih lama, terutama ketika jumlah pohon yang digunakan cukup banyak.
 
 3. Linear Regression
-Saya gunakan sebagai pendekatan yang lebih sederhana dan interpretatif. Model ini cocok untuk melihat hubungan linier antara variabel independen dengan target. Kelebihan dari Linear Regression adalah kecepatan dalam pelatihan model dan kemudahan interpretasi.
+Saya gunakan sebagai pendekatan yang lebih sederhana dan interpretatif. Model ini cocok untuk melihat hubungan linier antara variabel independen dengan target. Kelebihan dari Linear Regression adalah kecepatan dalam pelatihan model dan kemudahan interpretasi. Namun, model ini kurang efektif dalam menangkap hubungan non-linear antar variabel, sehingga performanya cenderung lebih rendah dibandingkan model berbasis ensemble.
 
 4. K-Nearest Neighbors (KNN)
-KNN memprediksi nilai target berdasarkan kedekatan data dengan titik data lain yang serupa. Kelebihannya adalah model ini tidak memerlukan pelatihan yang intensif dan cukup fleksibel untuk menangkap pola lokal.
+KNN memprediksi nilai target berdasarkan kedekatan data dengan titik data lain yang serupa. Kelebihannya adalah model ini tidak memerlukan pelatihan yang intensif dan cukup fleksibel untuk menangkap pola lokal.Namun, kekurangannya adalah performa model sangat bergantung pada pemilihan parameter k dan sensitif terhadap data yang memiliki skala berbeda, sehingga memerlukan normalisasi yang baik. Selain itu, proses prediksi bisa menjadi lambat ketika jumlah data sangat besar.
 
 #### Pemilihan Model Terbaik
 Setelah melatih model-model di atas, saya akan membandingkan hasilnya berdasarkan Root Mean Squared Error (RMSE) dan R² Score. Jika Random Forest memberikan hasil terbaik, maka model ini akan dipilih sebagai model utama. Jika diperlukan, hyperparameter tuning akan dilakukan menggunakan GridSearchCV atau RandomizedSearchCV untuk meningkatkan performa model Random Forest.

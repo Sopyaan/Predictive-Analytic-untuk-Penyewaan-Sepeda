@@ -30,7 +30,6 @@ Untuk mengatasi tantangan ini, beberapa pendekatan solusi inovatif akan diterapk
 ###  Evaluation Metrics
 Untuk mengevaluasi kinerja setiap model, saya akan menggunakan metrik evaluasi berikut:
 - Root Mean Squared Error (RMSE): Mengukur deviasi prediksi terhadap nilai aktual. Cocok untuk model regresi karena memberikan penalti lebih besar pada kesalahan besar.
-- R² Score: Mengukur seberapa besar variabilitas target yang dapat dijelaskan oleh model. Nilai mendekati 1 menunjukkan model yang baik dalam memprediksi jumlah penyewaan sepeda.
   
 ## Data Understanding
 ### Informasi Data
@@ -87,39 +86,56 @@ Variabel yang diprediksi adalah jumlah penyewaan sepeda, yaitu cnt.
 Data preparation ini bertujuan untuk memastikan dataset bersih dan siap digunakan dalam pembangunan model prediktif.
 
 ## Modeling
-Pada tahap pemodelan, saya akan memulai dengan Random Forest Regressor sebagai model utama untuk memprediksi jumlah penyewaan sepeda. Setelah itu, saya akan membandingkan performanya dengan beberapa model lain, yaitu Gradient Boosting Regressor, Linear Regression, dan K-Nearest Neighbors (KNN) untuk memastikan apakah Random Forest sudah menjadi pilihan terbaik.
+Pada tahap pemodelan, saya membandingkan empat model yang kemudian akan saya pilih berdasarkan matrik evaluasi. Adapun model yang akan dikembangkan meliputi:
 
-1. Random Forest Regressor (Model Utama)
+### Random Forest Regressor 
 Pada tahap pemodelan, saya menggunakan Random Forest Regressor sebagai model utama karena kemampuannya dalam menangani data yang non-linear dan kompleks. Random Forest menggabungkan banyak pohon keputusan untuk menghasilkan prediksi yang lebih stabil dan akurat. Kelebihan dari model ini adalah kemampuannya untuk menangani data dengan banyak fitur dan variabel, serta tidak rentan terhadap overfitting jika dibandingkan dengan model pohon keputusan tunggal. Namun, salah satu kekurangan dari Random Forest adalah waktu pelatihan yang cenderung lebih lama, terutama ketika jumlah pohon yang digunakan cukup banyak.
 
-2. Gradient Boosting
+### Gradient Boosting
 Algoritma ini bekerja dengan membangun model secara bertahap dan memperbaiki kesalahan dari model sebelumnya melalui proses boosting. Kelebihan dari GradientBoosting adalah kemampuannya dalam menghasilkan prediksi yang sangat akurat, terutama untuk data kompleks. Namun, salah satu kekurangan dari Random Forest adalah waktu pelatihan yang cenderung lebih lama, terutama ketika jumlah pohon yang digunakan cukup banyak.
 
-3. Linear Regression
+### Linear Regression
 Saya gunakan sebagai pendekatan yang lebih sederhana dan interpretatif. Model ini cocok untuk melihat hubungan linier antara variabel independen dengan target. Kelebihan dari Linear Regression adalah kecepatan dalam pelatihan model dan kemudahan interpretasi. Namun, model ini kurang efektif dalam menangkap hubungan non-linear antar variabel, sehingga performanya cenderung lebih rendah dibandingkan model berbasis ensemble.
 
-4. K-Nearest Neighbors (KNN)
+### K-Nearest Neighbors (KNN)
 KNN memprediksi nilai target berdasarkan kedekatan data dengan titik data lain yang serupa. Kelebihannya adalah model ini tidak memerlukan pelatihan yang intensif dan cukup fleksibel untuk menangkap pola lokal.Namun, kekurangannya adalah performa model sangat bergantung pada pemilihan parameter k dan sensitif terhadap data yang memiliki skala berbeda, sehingga memerlukan normalisasi yang baik. Selain itu, proses prediksi bisa menjadi lambat ketika jumlah data sangat besar.
 
 #### Pemilihan Model Terbaik
-Setelah melatih model-model di atas, saya akan membandingkan hasilnya berdasarkan Root Mean Squared Error (RMSE) dan R² Score. Jika Random Forest memberikan hasil terbaik, maka model ini akan dipilih sebagai model utama. Jika diperlukan, hyperparameter tuning akan dilakukan menggunakan GridSearchCV atau RandomizedSearchCV untuk meningkatkan performa model Random Forest.
+Setelah melatih model-model di atas, saya akan membandingkan hasilnya berdasarkan Root Mean Squared Error (RMSE). Jika Random Forest memberikan hasil terbaik, maka model ini akan dipilih sebagai model utama. Jika diperlukan, hyperparameter tuning akan dilakukan menggunakan GridSearchCV atau RandomizedSearchCV untuk meningkatkan performa model Random Forest.
 
 Dengan pendekatan ini, saya berharap dapat menemukan model yang paling akurat untuk memprediksi jumlah penyewaan sepeda.
 
 ## Evaluation
-Untuk mengevaluasi performa model regresi yang dibangun, saya menggunakan dua metrik utama, yaitu Root Mean Squared Error (RMSE) dan R² Score. Pemilihan kedua metrik ini disesuaikan dengan konteks permasalahan prediksi jumlah penyewaan sepeda, di mana penting untuk mengukur akurasi dan kemampuan model dalam menjelaskan variabilitas data.
+Untuk mengevaluasi performa model regresi yang dibangun, saya menggunakan dua metrik utama, yaitu Root Mean Squared Error (RMSE). Pemilihan metrik ini disesuaikan dengan konteks permasalahan prediksi jumlah penyewaan sepeda, di mana penting untuk mengukur akurasi dan kemampuan model dalam menjelaskan variabilitas data.
 
 1. Root Mean Squared Error (RMSE)
 Metrik ini memberikan penalti lebih besar terhadap kesalahan prediksi yang besar, sehingga cocok untuk kasus di mana outlier atau deviasi tinggi perlu diwaspadai. Semakin kecil nilai RMSE, semakin baik performa model.
 
-2. R² Score
-R² Score digunakan untuk melihat seberapa baik model menjelaskan variansi dari target. Nilai R² berkisar antara 0 hingga 1. Nilai mendekati 1 menunjukkan bahwa model mampu menjelaskan hampir seluruh variabilitas data target.
 
 ### Hasil Evaluasi 
-- Random Forest Regressor memberikan performa terbaik, dengan nilai R² sebesar 0.9441 dan RMSE sebesar 42.07. Model ini mampu menangkap pola data yang kompleks dengan akurasi tinggi.
-- Model Gradient Boosting Regressor berada di posisi kedua, dengan R² sebesar 0.8495 dan RMSE 69.04, menunjukkan performa yang cukup baik meskipun tidak seakurat Random Forest.
-- Model K-Nearest Neighbors (KNN) mencatat performa yang relatif baik dengan R² sebesar 0.9123 dan RMSE 52.70, namun tetap lebih rendah dibanding Random Forest.
-- Linear Regression memiliki performa terendah, dengan R² sebesar 0.3880 dan RMSE sebesar 139.21. Hasil ini menunjukkan bahwa model linier kurang mampu menangkap pola kompleks dalam data penyewaan sepeda.
+#### Data Aktual dan Hasil Prediksi
 
-Berdasarkan hasil tersebut, saya memilih Random Forest Regressor sebagai model terbaik karena konsisten memberikan hasil evaluasi paling unggul dibandingkan model lainnya.
+| ID    | Nilai Aktual (y_true) | Prediksi Random Forest | Prediksi Boosting | Prediksi Linear Reg. | Prediksi KNN |
+|-------|------------------------|--------------------------|--------------------|------------------------|---------------|
+| 12830 | 425                    | **375.5**                | 450.5              | 450.3                  | 370.6         |
 
+#### Evaluasi Performa Model (RMSE)
+
+| Model           | RMSE (Train) | RMSE (Test) |
+|-----------------|--------------|-------------|
+| Random Forest   | **0.3874**   | **1.8266**  |
+| Boosting        | 2.8554       | 2.8737      |
+| K-Nearest Neighbors (KNN) | 2.4765       | 2.9494      |
+| Linear Regression | 20.2926      | 19.3798     |
+
+
+#### Analisis
+- **Random Forest** menunjukkan performa terbaik dengan RMSE paling rendah pada data train dan test.
+- **Boosting** dan **KNN** juga memberikan performa yang cukup baik, meskipun tidak seakurat Random Forest.
+-  **Linear Regression** memiliki RMSE tertinggi, mengindikasikan model terlalu sederhana untuk pola data ini.
+
+### Kesimpulan
+Model **Random Forest** dipilih sebagai model terbaik untuk implementasi akhir karena:
+- Prediksi paling mendekati nilai aktual.
+- RMSE terendah di antara semua model.
+- Tidak menunjukkan overfitting yang signifikan antara train dan test.

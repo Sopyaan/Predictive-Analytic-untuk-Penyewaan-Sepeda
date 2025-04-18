@@ -20,20 +20,15 @@ Berdasarkan konteks tersebut, proyek ini berfokus pada dua pertanyaan utama:
 
 ### Solution Statements
 Untuk mengatasi tantangan prediksi jumlah penyewaan sepeda secara akurat, saya mengimplementasikan dan membandingkan empat algoritma regresi dengan pendekatan yang berbeda, yaitu:
-- Random Forest Regressor
-Cocok untuk menangani data non-linear dan kompleks. Model ini juga menyediakan fitur feature importance yang membantu memahami variabel-variabel paling berpengaruh terhadap permintaan penyewaan sepeda.
-- Gradient Boosting Regressor
-Model ini mengadopsi teknik boosting, yang secara bertahap memperbaiki kesalahan model sebelumnya. Saya mengevaluasi apakah pendekatan ini mampu menghasilkan error yang lebih rendah dibandingkan model lainnya.
-- Linear Regression
-Digunakan sebagai baseline model karena sifatnya yang sederhana dan mudah diinterpretasikan. Meski terbatas dalam menangkap hubungan non-linear, model ini tetap penting sebagai pembanding awal performa.
-- K-Nearest Neighbors (KNN) Regressor
-Merupakan model non-parametrik yang memprediksi berdasarkan kedekatan antar data. Saya mengujinya untuk melihat seberapa baik pendekatan ini bekerja dalam konteks prediksi penyewaan sepeda.
+- Random Forest Regressor: Cocok untuk menangani data non-linear dan kompleks. Model ini juga menyediakan fitur feature importance yang membantu memahami variabel-variabel paling berpengaruh terhadap permintaan penyewaan sepeda.
+- Gradient Boosting Regressor: Model ini mengadopsi teknik boosting, yang secara bertahap memperbaiki kesalahan model sebelumnya. Saya mengevaluasi apakah pendekatan ini mampu menghasilkan error yang lebih rendah dibandingkan model lainnya.
+- Linear Regression: Digunakan sebagai baseline model karena sifatnya yang sederhana dan mudah diinterpretasikan. Meski terbatas dalam menangkap hubungan non-linear, model ini tetap penting sebagai pembanding awal performa.
+- K-Nearest Neighbors (KNN) Regressor: Merupakan model non-parametrik yang memprediksi berdasarkan kedekatan antar data. Saya mengujinya untuk melihat seberapa baik pendekatan ini bekerja dalam konteks prediksi penyewaan sepeda.
 
-Evaluasi performa keempat model dilakukan menggunakan Mean Squared Error (MSE) pada data train dan test. Nilai MSE dibandingkan untuk melihat model mana yang memberikan error terkecil dan memiliki generalisasi terbaik terhadap data baru.
   
 ###  Evaluation Metrics
-Untuk mengevaluasi kinerja setiap model, saya akan menggunakan metrik evaluasi berikut:
-- Root Mean Squared Error (RMSE): Mengukur deviasi prediksi terhadap nilai aktual. Cocok untuk model regresi karena memberikan penalti lebih besar pada kesalahan besar.
+Untuk mengevaluasi kinerja setiap model, saya menggunakan metrik evaluasi berikut:
+- Mean Squared Error (MSE): Metrik ini menghitung rata-rata kuadrat selisih antara nilai aktual dan nilai prediksi. MSE memberikan penalti yang lebih besar terhadap kesalahan prediksi yang besar, sehingga sangat cocok digunakan dalam kasus regresi. Semakin kecil nilai MSE, semakin baik performa model dalam melakukan prediksi.
   
 ## Data Understanding
 ### Informasi Data
@@ -59,12 +54,27 @@ Dataset ini terdiri dari dua agregasi utama: data per jam dan per hari. Variabel
 - Count: Total jumlah penyewaan sepeda (Casual + Registered).
 
 ### Tahapan untuk Memahami Data
-Analisis eksplorasi data dilakukan untuk memahami hubungan antar variabel dan pola yang ada. Ini mencakup pembuatan grafik distribusi, analisis korelasi antar variabel, serta identifikasi outliers atau nilai yang hilang.
-- Histogram: Memvisualisasikan distribusi data.
-- Boxplot: Mengidentifikasi outlier dan melihat sebaran data.
-- Heatmap: Memvisualisasikan korelasi antar fitur.
+Tahap eksplorasi data dilakukan untuk memahami pola, hubungan antar variabel, serta karakteristik distribusi dalam dataset. Berikut adalah hasil dari proses exploratory data analysis (EDA) yang dilakukan:
+- Distribusi Data (Histogram)
+<p align="center">
+  <img src="", width="https://github.com/Sopyaan/Predictive-Analytic-untuk-Penyewaan-Sepeda/blob/main/Image/Distribusi%20Data.png" height="">
+</p>
 
-Visualisasi data dilakukan menggunakan grafik histogram dan Heatmap untuk mendapatkan insight mengenai struktur dan hubungan antar variabel.
+Kolom target cnt (jumlah penyewaan sepeda) menunjukkan distribusi yang menceng ke kanan (right-skewed), dengan sebagian besar observasi berada di angka rendah dan hanya sedikit yang memiliki penyewaan tinggi. Hal ini menunjukkan penyewaan dalam jumlah besar hanya terjadi pada kondisi tertentu (misalnya musim puncak atau jam sibuk).
+
+- Deteksi Outliers (Boxplot & IQR)
+<p align="center">
+  <img src="https://github.com/Sopyaan/Predictive-Analytic-untuk-Penyewaan-Sepeda/blob/main/Image/Outliers.png", width="" height="">
+</p>
+
+Outlier ditemukan pada kolom casual, registered, dan windspeed. Namun, setelah ditelusuri, nilai-nilai ini masih relevan dalam konteks nyata seperti lonjakan permintaan saat hari libur atau kondisi cuaca ekstrem, sehingga tidak dihapus.
+
+- Korelasi Antar Variabel (Heatmap)
+<p align="center">
+  <img src="https://github.com/Sopyaan/Predictive-Analytic-untuk-Penyewaan-Sepeda/blob/main/Image/Heatmap.png", width="" height="">
+</p>
+
+Hasil heatmap menunjukkan korelasi tinggi antara cnt dengan registered (0.97) dan casual (0.69). Fitur temp dan hr juga memiliki korelasi positif terhadap cnt, sedangkan hum dan windspeed menunjukkan korelasi negatif. Korelasi yang tinggi antara temp dan atemp (0.99) mengindikasikan bahwa salah satu dapat dihapus untuk menghindari duplikasi informasi dalam modeling.
 
 ## Data Preparation
 1. Pemeriksaan Missing Values

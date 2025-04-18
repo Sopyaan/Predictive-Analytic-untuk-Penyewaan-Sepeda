@@ -77,27 +77,37 @@ Outlier ditemukan pada kolom casual, registered, dan windspeed. Namun, setelah d
 Hasil heatmap menunjukkan korelasi tinggi antara cnt dengan registered (0.97) dan casual (0.69). Fitur temp dan hr juga memiliki korelasi positif terhadap cnt, sedangkan hum dan windspeed menunjukkan korelasi negatif. Korelasi yang tinggi antara temp dan atemp (0.99) mengindikasikan bahwa salah satu dapat dihapus untuk menghindari duplikasi informasi dalam modeling.
 
 ## Data Preparation
-1. Pemeriksaan Missing Values
-Dilakukan untuk memastikan tidak ada nilai yang hilang pada dataset. Jika ditemukan, nilai tersebut akan diimputasi atau dihapus agar model tidak terpengaruh oleh data yang hilang.
+Data preparation dilakukan untuk memastikan bahwa dataset dalam kondisi bersih, konsisten, dan siap digunakan dalam proses pemodelan. Berikut adalah tahapan yang dilakukan secara berurutan:
 
-2. Pemeriksaan Duplikat Data
-Duplikat dalam data akan diidentifikasi dan dihapus untuk menghindari bias dan overfitting pada model.
+### 1. Pemeriksaan Missing Values
+Saya memeriksa seluruh kolom dalam dataset menggunakan `.isnull().sum()` dan memastikan bahwa **tidak terdapat nilai yang hilang** pada fitur manapun.  
+> ✅ Alasan: Nilai yang hilang dapat mengganggu proses pelatihan model dan menurunkan akurasi prediksi. Jika ditemukan, nilai tersebut akan diimputasi atau dihapus sesuai konteks.
 
-3. Identifikasi dan Penanganan Outliers
-Outliers yang terdeteksi melalui metode IQR dan boxplot akan dipertimbangkan untuk dihapus jika dianggap mempengaruhi akurasi model.
+### 2. Pemeriksaan Duplikat Data
+Pemeriksaan dilakukan dengan `.duplicated().sum()`, dan hasilnya menunjukkan **tidak ada baris duplikat** dalam dataset.  
+> ✅ Alasan: Data duplikat dapat menimbulkan bias dalam pelatihan dan menyebabkan model belajar pola yang tidak representatif.
 
-4. Splitting Data (Pembagian Data)
-Data dibagi menjadi training set (80%) dan test set (20%) untuk melatih dan menguji model, menggunakan train_test_split().
+### 3. Identifikasi dan Penanganan Outliers
+Outliers diperiksa pada fitur numerik (`casual`, `registered`, `cnt`, `windspeed`) menggunakan **boxplot** dan metode **Interquartile Range (IQR)**.  
+Meskipun ditemukan beberapa outliers, nilai-nilai tersebut masih dianggap wajar dalam konteks bisnis (seperti lonjakan saat musim panas atau akhir pekan), sehingga **tidak dihapus**.  
+> ✅ Alasan: Outliers bisa menjadi indikasi penting dari perilaku nyata pengguna, dan penghapusannya bisa menghilangkan informasi bernilai.
 
-5. Fitur dan Target
+### 4. Splitting Data (Pembagian Data)
+Dataset dibagi menjadi dua bagian menggunakan `train_test_split()` dari `sklearn.model_selection`:
+- **80%** untuk data latih (training set)
+- **20%** untuk data uji (testing set)
 
-- Fitur (X):
-Variabel yang digunakan untuk memprediksi target antara lain: season, yr, mnth, hr, holiday, weekday, workingday, weathersit, temp, atemp, hum, windspeed.
+> ✅ Alasan: Pembagian ini penting untuk melatih model pada satu subset dan mengevaluasinya pada data yang tidak pernah dilihat, agar performa model lebih objektif.
 
-- Target (y):
-Variabel yang diprediksi adalah jumlah penyewaan sepeda, yaitu cnt.
+### 5. Fitur dan Target
 
-Data preparation ini bertujuan untuk memastikan dataset bersih dan siap digunakan dalam pembangunan model prediktif.
+- **Fitur (X):**  
+  `season`, `yr`, `mnth`, `hr`, `holiday`, `weekday`, `workingday`, `weathersit`, `temp`, `atemp`, `hum`, `windspeed`
+
+- **Target (y):**  
+  `cnt` → jumlah total penyewaan sepeda (baik pengguna casual maupun registered)
+
+> ✅ Alasan: Fitur yang dipilih merupakan kombinasi variabel waktu, cuaca, dan status hari yang diyakini memengaruhi jumlah penyewaan sepeda. Target `cnt` adalah variabel utama yang akan diprediksi.
 
 ## Modeling
 Pada tahap pemodelan, saya membandingkan empat model yang kemudian akan saya pilih berdasarkan matrik evaluasi. Adapun model yang akan dikembangkan meliputi:

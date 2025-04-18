@@ -110,24 +110,100 @@ Dataset dibagi menjadi dua bagian menggunakan `train_test_split()` dari `sklearn
 > ✅ Alasan: Fitur yang dipilih merupakan kombinasi variabel waktu, cuaca, dan status hari yang diyakini memengaruhi jumlah penyewaan sepeda. Target `cnt` adalah variabel utama yang akan diprediksi.
 
 ## Modeling
-Pada tahap pemodelan, saya membandingkan empat model yang kemudian akan saya pilih berdasarkan matrik evaluasi. Adapun model yang akan dikembangkan meliputi:
+Pada tahap ini, saya membandingkan empat model regresi untuk memprediksi jumlah penyewaan sepeda. Evaluasi dilakukan menggunakan Mean Squared Error (MSE) pada data pelatihan. Model dengan nilai MSE terendah akan dipilih sebagai model terbaik.
 
 ### Random Forest Regressor 
-Random Forest menggabungkan banyak pohon keputusan untuk menghasilkan prediksi yang lebih stabil dan akurat. Kelebihan dari model ini adalah kemampuannya untuk menangani data dengan banyak fitur dan variabel, serta tidak rentan terhadap overfitting jika dibandingkan dengan model pohon keputusan tunggal. Namun, salah satu kekurangan dari Random Forest adalah waktu pelatihan yang cenderung lebih lama, terutama ketika jumlah pohon yang digunakan cukup banyak.
+#### Tahapan:
+- Pemilihan fitur.
+- Pelatihan model dengan `RandomForestRegressor`.
+- Evaluasi menggunakan MSE pada data latih.
+
+#### Parameter:
+- `n_estimators=50`
+- `max_depth=16`
+- `random_state=55`
+- `n_jobs=-1`
+
+#### Teori / Cara Kerja:
+Random Forest adalah metode ensemble yang membentuk banyak pohon keputusan dari subset acak data. Prediksi akhir diperoleh dari rata-rata prediksi setiap pohon.
+
+#### Kelebihan:
+- Handal untuk dataset dengan banyak fitur.
+- Kurang rentan terhadap overfitting.
+- Mampu menangani data kategorikal dan numerik.
+
+#### Kekurangan:
+- Waktu pelatihan bisa relatif lama.
+- Model sulit untuk diinterpretasikan.
 
 ### Gradient Boosting
-Algoritma ini bekerja dengan membangun model secara bertahap dan memperbaiki kesalahan dari model sebelumnya melalui proses boosting. Kelebihan dari GradientBoosting adalah kemampuannya dalam menghasilkan prediksi yang sangat akurat, terutama untuk data kompleks. Namun, salah satu kekurangan dari Random Forest adalah waktu pelatihan yang cenderung lebih lama, terutama ketika jumlah pohon yang digunakan cukup banyak.
+#### Tahapan:
+- Pelatihan model dengan `GradientBoostingRegressor`.
+- Evaluasi menggunakan MSE.
 
+#### Parameter:
+- `n_estimators=100`
+- `learning_rate=0.3`
+- `max_depth=3`
+- `random_state=55`
+  
+---
+
+#### Teori / Cara Kerja:
+Gradient Boosting membangun model secara bertahap. Setiap pohon baru fokus pada memperbaiki kesalahan dari pohon sebelumnya menggunakan pendekatan gradient descent.
+
+#### Kelebihan:
+- Akurat untuk data kompleks.
+- Dapat bekerja baik tanpa banyak preprocessing.
+
+#### Kekurangan:
+- Waktu pelatihan lebih lama dibanding model linear.
+- Rentan overfitting jika tidak dikontrol parameter (meski di sini tidak dilakukan tuning).
+
+---
 ### Linear Regression
-Saya gunakan sebagai pendekatan yang lebih sederhana dan interpretatif. Model ini cocok untuk melihat hubungan linier antara variabel independen dengan target. Kelebihan dari Linear Regression adalah kecepatan dalam pelatihan model dan kemudahan interpretasi. Namun, model ini kurang efektif dalam menangkap hubungan non-linear antar variabel, sehingga performanya cenderung lebih rendah dibandingkan model berbasis ensemble.
+#### Tahapan:
+- Pelatihan model menggunakan `LinearRegression`.
+- Evaluasi menggunakan MSE.
+
+#### Teori / Cara Kerja:
+Model ini mencoba mencari hubungan linier antara variabel independen dan target menggunakan pendekatan **ordinary least squares**.
+
+#### Kelebihan:
+- Cepat dan mudah diinterpretasikan.
+- Cocok untuk hubungan linier antar variabel.
+
+#### Kekurangan:
+- Kurang cocok untuk data dengan hubungan non-linier.
+- Sensitif terhadap outlier.
+
+---
 
 ### K-Nearest Neighbors (KNN)
-KNN memprediksi nilai target berdasarkan kedekatan data dengan titik data lain yang serupa. Kelebihannya adalah model ini tidak memerlukan pelatihan yang intensif dan cukup fleksibel untuk menangkap pola lokal.Namun, kekurangannya adalah performa model sangat bergantung pada pemilihan parameter k dan sensitif terhadap data yang memiliki skala berbeda, sehingga memerlukan normalisasi yang baik. Selain itu, proses prediksi bisa menjadi lambat ketika jumlah data sangat besar.
+#### Tahapan:
+- Pelatihan model dengan `KNeighborsRegressor`.
+- Evaluasi dengan MSE.
+- Data perlu dinormalisasi agar skala fitur setara.
+
+#### Parameter:
+- `n_neighbors=10`
+
+#### Teori / Cara Kerja:
+KNN memprediksi nilai berdasarkan rata-rata dari k tetangga terdekat yang ditemukan berdasarkan jarak Euclidean.
+
+#### Kelebihan:
+- Tidak memerlukan pelatihan model (lazy learning).
+- Cukup fleksibel untuk pola lokal.
+
+#### Kekurangan:
+- Proses prediksi lambat untuk data besar.
+- Sangat sensitif terhadap skala data dan nilai parameter k.
+
+---
 
 #### Pemilihan Model Terbaik
-Setelah melatih model-model di atas, saya akan membandingkan hasilnya berdasarkan Root Mean Squared Error (RMSE). Jika Random Forest memberikan hasil terbaik, maka model ini akan dipilih sebagai model utama. Jika diperlukan, hyperparameter tuning akan dilakukan menggunakan GridSearchCV atau RandomizedSearchCV untuk meningkatkan performa model Random Forest.
+Evaluasi dilakukan dengan menghitung nilai **Mean Squared Error (MSE)** dari keempat model pada data pelatihan. Model dengan MSE paling kecil dipilih sebagai model utama karena memberikan prediksi paling mendekati nilai aktual. 
 
-Dengan pendekatan ini, saya berharap dapat menemukan model yang paling akurat untuk memprediksi jumlah penyewaan sepeda.
 
 ## Evaluation
 Untuk mengevaluasi performa model regresi yang dibangun, saya menggunakan Mean Squared Error (MSE). Pemilihan metrik ini disesuaikan dengan konteks permasalahan prediksi jumlah penyewaan sepeda, di mana penting untuk mengukur akurasi dan kemampuan model dalam menjelaskan variabilitas data.

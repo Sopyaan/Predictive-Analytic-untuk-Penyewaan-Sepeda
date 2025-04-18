@@ -19,13 +19,17 @@ Berdasarkan konteks tersebut, proyek ini berfokus pada dua pertanyaan utama:
 2. Mengidentifikasi fitur-fitur penting yang paling memengaruhi pola penyewaan sepeda, seperti cuaca, hari libur, dan musim.
 
 ### Solution Statements
-Untuk mengatasi tantangan ini, beberapa pendekatan solusi inovatif akan diterapkan, yaitu:
-1. Menggunakan Random Forest Regressor sebagai model awal. Algoritma ini dipilih karena kemampuannya dalam menangani data yang tidak linier dan mengelola fitur yang kompleks dengan sangat baik.
-2. Proses feature importance analysis akan dilakukan untuk mengidentifikasi variabel-variabel yang paling berpengaruh terhadap prediksi jumlah penyewaan sepeda, memberikan wawasan lebih dalam tentang faktor-faktor utama yang mempengaruhi permintaan.
-3. Setelah model Random Forest dibuat, saya akan membandingkan hasil prediksi dengan model lain untuk membuktikan apakah Random Forest merupakan pilihan yang tepat. Beberapa model alternatif yang akan saya uji meliputi:
-   - Gradient Boosting Regressor: Model ini menggunakan teknik boosting yang dapat meningkatkan akurasi model dengan mengoreksi kesalahan secara bertahap. Saya akan mengevaluasi apakah Gradient Boosting memberikan hasil yang lebih baik daripada Random Forest.
-   - Linear Regression: Model ini akan saya gunakan sebagai pembanding dengan pendekatan yang lebih sederhana. Walaupun lebih mudah diinterpretasikan, Linear Regression memiliki keterbatasan dalam menangkap hubungan non-linear antara variabel. Saya akan mengevaluasi seberapa efektif Linear Regression dalam memprediksi penyewaan sepeda.
-   - K-Nearest Neighbors (KNN): Model berbasis instance ini akan memberikan alternatif untuk prediksi dengan cara mengukur kedekatan data. KNN akan saya uji untuk melihat apakah model ini memberikan hasil yang berbeda atau lebih baik dibandingkan dengan model lainnya.
+Untuk mengatasi tantangan prediksi jumlah penyewaan sepeda secara akurat, saya mengimplementasikan dan membandingkan empat algoritma regresi dengan pendekatan yang berbeda, yaitu:
+- Random Forest Regressor
+Cocok untuk menangani data non-linear dan kompleks. Model ini juga menyediakan fitur feature importance yang membantu memahami variabel-variabel paling berpengaruh terhadap permintaan penyewaan sepeda.
+- Gradient Boosting Regressor
+Model ini mengadopsi teknik boosting, yang secara bertahap memperbaiki kesalahan model sebelumnya. Saya mengevaluasi apakah pendekatan ini mampu menghasilkan error yang lebih rendah dibandingkan model lainnya.
+- Linear Regression
+Digunakan sebagai baseline model karena sifatnya yang sederhana dan mudah diinterpretasikan. Meski terbatas dalam menangkap hubungan non-linear, model ini tetap penting sebagai pembanding awal performa.
+- K-Nearest Neighbors (KNN) Regressor
+Merupakan model non-parametrik yang memprediksi berdasarkan kedekatan antar data. Saya mengujinya untuk melihat seberapa baik pendekatan ini bekerja dalam konteks prediksi penyewaan sepeda.
+
+Evaluasi performa keempat model dilakukan menggunakan Mean Squared Error (MSE) pada data train dan test. Nilai MSE dibandingkan untuk melihat model mana yang memberikan error terkecil dan memiliki generalisasi terbaik terhadap data baru.
   
 ###  Evaluation Metrics
 Untuk mengevaluasi kinerja setiap model, saya akan menggunakan metrik evaluasi berikut:

@@ -113,7 +113,7 @@ Dataset dibagi menjadi dua bagian menggunakan `train_test_split()` dari `sklearn
 Pada tahap pemodelan, saya membandingkan empat model yang kemudian akan saya pilih berdasarkan matrik evaluasi. Adapun model yang akan dikembangkan meliputi:
 
 ### Random Forest Regressor 
-Pada tahap pemodelan, saya menggunakan Random Forest Regressor sebagai model utama karena kemampuannya dalam menangani data yang non-linear dan kompleks. Random Forest menggabungkan banyak pohon keputusan untuk menghasilkan prediksi yang lebih stabil dan akurat. Kelebihan dari model ini adalah kemampuannya untuk menangani data dengan banyak fitur dan variabel, serta tidak rentan terhadap overfitting jika dibandingkan dengan model pohon keputusan tunggal. Namun, salah satu kekurangan dari Random Forest adalah waktu pelatihan yang cenderung lebih lama, terutama ketika jumlah pohon yang digunakan cukup banyak.
+Random Forest menggabungkan banyak pohon keputusan untuk menghasilkan prediksi yang lebih stabil dan akurat. Kelebihan dari model ini adalah kemampuannya untuk menangani data dengan banyak fitur dan variabel, serta tidak rentan terhadap overfitting jika dibandingkan dengan model pohon keputusan tunggal. Namun, salah satu kekurangan dari Random Forest adalah waktu pelatihan yang cenderung lebih lama, terutama ketika jumlah pohon yang digunakan cukup banyak.
 
 ### Gradient Boosting
 Algoritma ini bekerja dengan membangun model secara bertahap dan memperbaiki kesalahan dari model sebelumnya melalui proses boosting. Kelebihan dari GradientBoosting adalah kemampuannya dalam menghasilkan prediksi yang sangat akurat, terutama untuk data kompleks. Namun, salah satu kekurangan dari Random Forest adalah waktu pelatihan yang cenderung lebih lama, terutama ketika jumlah pohon yang digunakan cukup banyak.
@@ -130,10 +130,10 @@ Setelah melatih model-model di atas, saya akan membandingkan hasilnya berdasarka
 Dengan pendekatan ini, saya berharap dapat menemukan model yang paling akurat untuk memprediksi jumlah penyewaan sepeda.
 
 ## Evaluation
-Untuk mengevaluasi performa model regresi yang dibangun, saya menggunakan dua metrik utama, yaitu Root Mean Squared Error (RMSE). Pemilihan metrik ini disesuaikan dengan konteks permasalahan prediksi jumlah penyewaan sepeda, di mana penting untuk mengukur akurasi dan kemampuan model dalam menjelaskan variabilitas data.
+Untuk mengevaluasi performa model regresi yang dibangun, saya menggunakan Mean Squared Error (MSE). Pemilihan metrik ini disesuaikan dengan konteks permasalahan prediksi jumlah penyewaan sepeda, di mana penting untuk mengukur akurasi dan kemampuan model dalam menjelaskan variabilitas data.
 
-1. Root Mean Squared Error (RMSE)
-Metrik ini memberikan penalti lebih besar terhadap kesalahan prediksi yang besar, sehingga cocok untuk kasus di mana outlier atau deviasi tinggi perlu diwaspadai. Semakin kecil nilai RMSE, semakin baik performa model.
+1. Mean Squared Error (MSE)
+Metrik ini menghitung rata-rata kuadrat selisih antara nilai aktual dan nilai prediksi. MSE memberikan penalti yang lebih besar terhadap kesalahan prediksi yang besar, sehingga sangat cocok digunakan dalam kasus regresi. Semakin kecil nilai MSE, semakin baik performa model dalam melakukan prediksi.
 
 
 ### Hasil Evaluasi 
@@ -143,9 +143,9 @@ Metrik ini memberikan penalti lebih besar terhadap kesalahan prediksi yang besar
 |-------|------------------------|--------------------------|--------------------|------------------------|---------------|
 | 12830 | 425                    | **375.5**                | 450.5              | 450.3                  | 370.6         |
 
-#### Evaluasi Performa Model (RMSE)
+#### Evaluasi Performa Model (MSE)
 
-| Model           | RMSE (Train) | RMSE (Test) |
+| Model           | MSE (Train) | MSE (Test) |
 |-----------------|--------------|-------------|
 | Random Forest   | **0.3874**   | **1.8266**  |
 | Boosting        | 2.8554       | 2.8737      |
@@ -154,12 +154,12 @@ Metrik ini memberikan penalti lebih besar terhadap kesalahan prediksi yang besar
 
 
 #### Analisis
-- **Random Forest** menunjukkan performa terbaik dengan RMSE paling rendah pada data train dan test.
+- **Random Forest** menunjukkan performa terbaik dengan MSE paling rendah pada data train dan test.
 - **Boosting** dan **KNN** juga memberikan performa yang cukup baik, meskipun tidak seakurat Random Forest.
--  **Linear Regression** memiliki RMSE tertinggi, mengindikasikan model terlalu sederhana untuk pola data ini.
+-  **Linear Regression** memiliki MSE tertinggi, mengindikasikan model terlalu sederhana untuk pola data ini.
 
 ### Kesimpulan
 Model **Random Forest** dipilih sebagai model terbaik untuk implementasi akhir karena:
 - Prediksi paling mendekati nilai aktual.
-- RMSE terendah di antara semua model.
+- MSE terendah di antara semua model.
 - Tidak menunjukkan overfitting yang signifikan antara train dan test.

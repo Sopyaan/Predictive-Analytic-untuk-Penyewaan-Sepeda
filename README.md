@@ -57,7 +57,7 @@ Dataset ini terdiri dari dua agregasi utama: data per jam dan per hari. Variabel
 Tahap eksplorasi data dilakukan untuk memahami pola, hubungan antar variabel, serta karakteristik distribusi dalam dataset. Berikut adalah hasil dari proses exploratory data analysis (EDA) yang dilakukan:
 - Distribusi Data (Histogram)
 <p align="center">
-  <img src="https://github.com/Sopyaan/Predictive-Analytic-untuk-Penyewaan-Sepeda/blob/main/Image/Distribusi%20Data.png", width="" height="">
+  <img src="Image/Distribusi Data.png", width="" height="">
 </p>
 
 Kolom target cnt (jumlah penyewaan sepeda) menunjukkan distribusi yang menceng ke kanan (right-skewed), dengan sebagian besar observasi berada di angka rendah dan hanya sedikit yang memiliki penyewaan tinggi. Hal ini menunjukkan penyewaan dalam jumlah besar hanya terjadi pada kondisi tertentu (misalnya musim puncak atau jam sibuk).

@@ -37,7 +37,13 @@ Dataset yang digunakan dalam proyek ini berisi data penyewaan sepeda yang dikump
 
 Dataset ini terdiri dari dua agregasi utama: data per jam dan per hari. Variabel-variabel yang tercatat meliputi cuaca, waktu, musim, suhu, kelembaban, dan kecepatan angin, serta jumlah penyewaan sepeda oleh pengguna terdaftar dan non-terdaftar.
 
+### Jumlah dan Kondisi Data
+Sebelum memulai proses analisis, pemahaman yang mendalam terhadap struktur, kualitas, dan kondisi dataset sangatlah penting. Langkah ini mencakup evaluasi jumlah observasi (baris) dan fitur (kolom), tipe data dari setiap variabel, keberadaan nilai yang hilang, serta ringkasan statistik deskriptif dasar.
+
+Dataset yang digunakan dalam analisis ini memiliki 17.379 baris dan 17 kolom, yang mencerminkan cakupan data yang memadai untuk dilakukan eksplorasi mendalam serta analisis yang akurat. Adapun untuk melihat kondisi awal dataset, lima baris pertama diperiksa guna memahami struktur dan format data secara umum.
+
 ### Variabel dalam Dataset 
+Dari lima baris pertama dataset, variabel-variabel berikut diidentifikasi:
 - Datetime: Waktu pengambilan data dalam format timestamp.
 - Season: Musim saat penyewaan dilakukan (1: Spring, 2: Summer, 3: Fall, 4: Winter).
 - Year: Tahun penyewaan (2011 atau 2012).
@@ -57,7 +63,7 @@ Dataset ini terdiri dari dua agregasi utama: data per jam dan per hari. Variabel
 Tahap eksplorasi data dilakukan untuk memahami pola, hubungan antar variabel, serta karakteristik distribusi dalam dataset. Berikut adalah hasil dari proses exploratory data analysis (EDA) yang dilakukan:
 - Distribusi Data (Histogram)
 <p align="center">
-  <img src="Image/Distribusi Data.png", width="" height="">
+  <img src="Image/Distribusi Data.png", width="" height=""> 
 </p>
 
 Kolom target cnt (jumlah penyewaan sepeda) menunjukkan distribusi yang menceng ke kanan (right-skewed), dengan sebagian besar observasi berada di angka rendah dan hanya sedikit yang memiliki penyewaan tinggi. Hal ini menunjukkan penyewaan dalam jumlah besar hanya terjadi pada kondisi tertentu (misalnya musim puncak atau jam sibuk).
@@ -77,37 +83,20 @@ Outlier ditemukan pada kolom casual, registered, dan windspeed. Namun, setelah d
 Hasil heatmap menunjukkan korelasi tinggi antara cnt dengan registered (0.97) dan casual (0.69). Fitur temp dan hr juga memiliki korelasi positif terhadap cnt, sedangkan hum dan windspeed menunjukkan korelasi negatif. Korelasi yang tinggi antara temp dan atemp (0.99) mengindikasikan bahwa salah satu dapat dihapus untuk menghindari duplikasi informasi dalam modeling.
 
 ## Data Preparation
-Data preparation dilakukan untuk memastikan bahwa dataset dalam kondisi bersih, konsisten, dan siap digunakan dalam proses pemodelan. Berikut adalah tahapan yang dilakukan secara berurutan:
+Proses data preparation merupakan langkah krusial dalam analisis data yang bertujuan untuk mempersiapkan dataset agar dapat dianalisis secara lebih efektif dan efisien. Tahapan ini mencakup serangkaian aktivitas seperti pembersihan data (data cleaning), transformasi data (data transformation), serta penyusunan data ke dalam format yang sesuai untuk analisis lanjutan maupun pemodelan.
 
-### 1. Pemeriksaan Missing Values
-Saya memeriksa seluruh kolom dalam dataset menggunakan `.isnull().sum()` dan memastikan bahwa **tidak terdapat nilai yang hilang** pada fitur manapun.  
-> ✅ Alasan: Nilai yang hilang dapat mengganggu proses pelatihan model dan menurunkan akurasi prediksi. Jika ditemukan, nilai tersebut akan diimputasi atau dihapus sesuai konteks.
+### Pembersihan Data
+Proses pembersihan data melibatkan identifikasi dan penanganan data yang hilang, penghapusan data duplikat, serta koreksi terhadap ketidakkonsistenan format atau nilai. Selain itu, dilakukan pula penelusuran terhadap outlier, yaitu nilai-nilai ekstrem yang menyimpang jauh dari distribusi umum data. Strategi penanganan outlier disesuaikan dengan konteks dan tujuan analisis, mengingat keberadaan outlier dapat memengaruhi performa model secara signifikan.
 
-### 2. Pemeriksaan Duplikat Data
-Pemeriksaan dilakukan dengan `.duplicated().sum()`, dan hasilnya menunjukkan **tidak ada baris duplikat** dalam dataset.  
-> ✅ Alasan: Data duplikat dapat menimbulkan bias dalam pelatihan dan menyebabkan model belajar pola yang tidak representatif.
+### Pembagian Fitur (X) dan Target (Y)
+Dalam konteks analisis prediktif, dataset perlu dipisahkan antara fitur independen (X) dan target atau variabel dependen (Y). Fitur X mencakup semua variabel yang digunakan untuk memprediksi nilai target, sedangkan Y adalah variabel yang ingin diprediksi oleh model.
 
-### 3. Identifikasi dan Penanganan Outliers
-Outliers diperiksa pada fitur numerik (`casual`, `registered`, `cnt`, `windspeed`) menggunakan **boxplot** dan metode **Interquartile Range (IQR)**.  
-Meskipun ditemukan beberapa outliers, nilai-nilai tersebut masih dianggap wajar dalam konteks bisnis (seperti lonjakan saat musim panas atau akhir pekan), sehingga **tidak dihapus**.  
-> ✅ Alasan: Outliers bisa menjadi indikasi penting dari perilaku nyata pengguna, dan penghapusannya bisa menghilangkan informasi bernilai.
+Pemilahan ini penting dilakukan untuk memastikan bahwa model hanya belajar dari input (fitur) dan tidak secara tidak sengaja mengakses informasi dari target selama pelatihan, yang dapat menyebabkan kebocoran data (data leakage).
 
-### 4. Splitting Data (Pembagian Data)
-Dataset dibagi menjadi dua bagian menggunakan `train_test_split()` dari `sklearn.model_selection`:
-- **80%** untuk data latih (training set)
-- **20%** untuk data uji (testing set)
+### Pembagian Data
+Setelah fitur dan target dipisahkan, langkah selanjutnya adalah membagi data menjadi training set dan test set. Training set digunakan untuk melatih model agar dapat mengenali pola dalam data, sementara test set digunakan untuk mengevaluasi performa model terhadap data yang belum pernah dilihat sebelumnya.
 
-> ✅ Alasan: Pembagian ini penting untuk melatih model pada satu subset dan mengevaluasinya pada data yang tidak pernah dilihat, agar performa model lebih objektif.
-
-### 5. Fitur dan Target
-
-- **Fitur (X):**  
-  `season`, `yr`, `mnth`, `hr`, `holiday`, `weekday`, `workingday`, `weathersit`, `temp`, `atemp`, `hum`, `windspeed`
-
-- **Target (y):**  
-  `cnt` → jumlah total penyewaan sepeda (baik pengguna casual maupun registered)
-
-> ✅ Alasan: Fitur yang dipilih merupakan kombinasi variabel waktu, cuaca, dan status hari yang diyakini memengaruhi jumlah penyewaan sepeda. Target `cnt` adalah variabel utama yang akan diprediksi.
+Pembagian ini bertujuan untuk mengukur kemampuan generalisasi model dalam memprediksi data di dunia nyata, sehingga hasil evaluasi mencerminkan performa model secara objektif dan tidak bias terhadap data pelatihan.
 
 ## Modeling
 Pada tahap ini, saya membandingkan empat model regresi untuk memprediksi jumlah penyewaan sepeda. Evaluasi dilakukan menggunakan Mean Squared Error (MSE) pada data pelatihan. Model dengan nilai MSE terendah akan dipilih sebagai model terbaik.

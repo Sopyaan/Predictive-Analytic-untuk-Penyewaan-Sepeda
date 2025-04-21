@@ -155,6 +155,9 @@ Gradient Boosting membangun model secara bertahap. Setiap pohon baru fokus pada 
 - Pelatihan model menggunakan `LinearRegression`.
 - Evaluasi menggunakan MSE.
 
+### Parameter:
+Model digunakan dengan parameter default, tanpa penyesuaian atau tuning.
+
 #### Teori / Cara Kerja:
 Model ini mencoba mencari hubungan linier antara variabel independen dan target menggunakan pendekatan **ordinary least squares**.
 

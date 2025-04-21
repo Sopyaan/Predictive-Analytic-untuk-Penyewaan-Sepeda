@@ -61,6 +61,7 @@ Dari lima baris pertama dataset, variabel-variabel berikut diidentifikasi:
 
 ### Tahapan untuk Memahami Data
 Tahap eksplorasi data dilakukan untuk memahami pola, hubungan antar variabel, serta karakteristik distribusi dalam dataset. Berikut adalah hasil dari proses exploratory data analysis (EDA) yang dilakukan:
+
 #### Distribusi Data (Histogram)
 ![alt text](https://github.com/Sopyaan/Predictive-Analytic-untuk-Penyewaan-Sepeda/blob/main/Image/Distribusi%20Data.png?raw=true)
 

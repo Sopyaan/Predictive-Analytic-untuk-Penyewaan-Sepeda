@@ -61,17 +61,17 @@ Dari lima baris pertama dataset, variabel-variabel berikut diidentifikasi:
 
 ### Tahapan untuk Memahami Data
 Tahap eksplorasi data dilakukan untuk memahami pola, hubungan antar variabel, serta karakteristik distribusi dalam dataset. Berikut adalah hasil dari proses exploratory data analysis (EDA) yang dilakukan:
-- Distribusi Data (Histogram)
+#### Distribusi Data (Histogram)
 ![alt text](https://github.com/Sopyaan/Predictive-Analytic-untuk-Penyewaan-Sepeda/blob/main/Image/Distribusi%20Data.png?raw=true)
 
 Kolom target cnt (jumlah penyewaan sepeda) menunjukkan distribusi yang menceng ke kanan (right-skewed), dengan sebagian besar observasi berada di angka rendah dan hanya sedikit yang memiliki penyewaan tinggi. Hal ini menunjukkan penyewaan dalam jumlah besar hanya terjadi pada kondisi tertentu (misalnya musim puncak atau jam sibuk).
 
-- Deteksi Outliers (Boxplot & IQR)
+#### Deteksi Outliers (Boxplot & IQR)
 ![alt text](https://github.com/Sopyaan/Predictive-Analytic-untuk-Penyewaan-Sepeda/blob/main/Image/Outliers.png?raw=true)
 
 Outlier ditemukan pada kolom casual, registered, dan windspeed. Namun, setelah ditelusuri, nilai-nilai ini masih relevan dalam konteks nyata seperti lonjakan permintaan saat hari libur atau kondisi cuaca ekstrem, sehingga tidak dihapus.
 
-- Korelasi Antar Variabel (Heatmap)
+#### Korelasi Antar Variabel (Heatmap)
 ![alt text](https://github.com/Sopyaan/Predictive-Analytic-untuk-Penyewaan-Sepeda/blob/main/Image/Heatmap.png?raw=true)
 
 Hasil heatmap menunjukkan korelasi tinggi antara cnt dengan registered (0.97) dan casual (0.69). Fitur temp dan hr juga memiliki korelasi positif terhadap cnt, sedangkan hum dan windspeed menunjukkan korelasi negatif. Korelasi yang tinggi antara temp dan atemp (0.99) mengindikasikan bahwa salah satu dapat dihapus untuk menghindari duplikasi informasi dalam modeling.

@@ -100,6 +100,22 @@ Untuk mengatasi missing values dapat digunakan teknik imputasi median, yaitu men
 > Implementasi:
 Pada analisis ini, tidak dilakukan penanganan missing values karena tidak terdapat nilai yang kosong pada dataset. Hal ini telah dipastikan melalui pemeriksaan menggunakan fungsi isnull().sum() yang menunjukkan hasil nol untuk seluruh kolom.
 
+#### Penanganan Duplikasi
+Data duplikat dapat menyebabkan model menjadi bias dan memperkuat pengaruh data yang seharusnya hanya dihitung sekali. Bias ini bisa memengaruhi evaluasi dan hasil model. Untuk menangani hal ini, biasanya digunakan fungsi drop_duplicates() dari library Pandas dalam Python.
+
+> Implementasi: Pemeriksaan duplikasi dilakukan menggunakan fungsi duplicated().sum(), dan hasilnya menunjukkan bahwa tidak ada baris yang duplikat dalam dataset. Oleh karena itu, tidak diperlukan penghapusan data duplikat dalam proses ini.
+
+#### Penanganan Outliers
+Outlier diidentifikasi menggunakan metode Interquartile Range (IQR), yaitu dengan menghitung nilai kuartil pertama (Q1) dan kuartil ketiga (Q3), kemudian menentukan rentang IQR. Nilai-nilai yang berada di luar rentang (Q1 - 1.5×IQR, Q3 + 1.5×IQR) dianggap sebagai outlier dan biasanya dihapus agar tidak memengaruhi distribusi data serta performa model secara signifikan.
+
+> Implementasi: Berdasarkan analisis statistik dan visualisasi menggunakan boxplot, ditemukan bahwa beberapa fitur seperti windspeed, casual, registered, dan cnt mengandung outlier. Namun, setelah dilakukan peninjauan lebih lanjut, nilai-nilai tersebut diketahui merepresentasikan variasi alami dalam perilaku pengguna sepeda. Misalnya, lonjakan jumlah pengguna pada akhir pekan, cuaca yang baik, atau musim tertentu. Oleh karena itu, outlier tidak dihapus, karena tetap dianggap relevan dan berpotensi memberikan informasi penting dalam proses pemodelan.
+
+#### Pembagian Fitur (X) dan Target (Y)
+> Implementasi: Fitur dan target dipisahkan sebagai berikut:
+- Fitur (X): Seluruh variabel yang digunakan untuk memprediksi target, yaitu season, yr, mnth, hr, holiday, weekday, workingday, weathersit, temp, atemp, hum, dan windspeed.
+- Target (Y): Variabel yang ingin diprediksi adalah cnt, yang merupakan jumlah total pengguna sepeda.
+
+Pembagian ini memastikan model hanya belajar dari fitur dan menghindari kebocoran informasi dari target selama proses pelatihan.
 ## Modeling
 Pada tahap ini, saya membandingkan empat model regresi untuk memprediksi jumlah penyewaan sepeda. Evaluasi dilakukan menggunakan Mean Squared Error (MSE) pada data pelatihan. Model dengan nilai MSE terendah akan dipilih sebagai model terbaik.
 

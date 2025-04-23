@@ -93,6 +93,13 @@ Setelah fitur dan target dipisahkan, langkah selanjutnya adalah membagi data men
 
 Pembagian ini bertujuan untuk mengukur kemampuan generalisasi model dalam memprediksi data di dunia nyata, sehingga hasil evaluasi mencerminkan performa model secara objektif dan tidak bias terhadap data pelatihan.
 
+### Proses Data Preparation yang Dilakukan
+#### Penanganan Missing Values
+Untuk mengatasi missing values dapat digunakan teknik imputasi median, yaitu mengganti nilai yang hilang dengan nilai median dari kolom tersebut. Teknik ini lebih robust terhadap outlier dibandingkan dengan rata-rata.
+
+> Implementasi:
+Pada analisis ini, tidak dilakukan penanganan missing values karena tidak terdapat nilai yang kosong pada dataset. Hal ini telah dipastikan melalui pemeriksaan menggunakan fungsi isnull().sum() yang menunjukkan hasil nol untuk seluruh kolom.
+
 ## Modeling
 Pada tahap ini, saya membandingkan empat model regresi untuk memprediksi jumlah penyewaan sepeda. Evaluasi dilakukan menggunakan Mean Squared Error (MSE) pada data pelatihan. Model dengan nilai MSE terendah akan dipilih sebagai model terbaik.
 

@@ -111,11 +111,19 @@ Outlier diidentifikasi menggunakan metode Interquartile Range (IQR), yaitu denga
 > Implementasi: Berdasarkan analisis statistik dan visualisasi menggunakan boxplot, ditemukan bahwa beberapa fitur seperti windspeed, casual, registered, dan cnt mengandung outlier. Namun, setelah dilakukan peninjauan lebih lanjut, nilai-nilai tersebut diketahui merepresentasikan variasi alami dalam perilaku pengguna sepeda. Misalnya, lonjakan jumlah pengguna pada akhir pekan, cuaca yang baik, atau musim tertentu. Oleh karena itu, outlier tidak dihapus, karena tetap dianggap relevan dan berpotensi memberikan informasi penting dalam proses pemodelan.
 
 #### Pembagian Fitur (X) dan Target (Y)
-> Implementasi: Fitur dan target dipisahkan sebagai berikut:
+Implementasi: Fitur dan target dipisahkan sebagai berikut:
 - Fitur (X): Seluruh variabel yang digunakan untuk memprediksi target, yaitu season, yr, mnth, hr, holiday, weekday, workingday, weathersit, temp, atemp, hum, dan windspeed.
 - Target (Y): Variabel yang ingin diprediksi adalah cnt, yang merupakan jumlah total pengguna sepeda.
 
 Pembagian ini memastikan model hanya belajar dari fitur dan menghindari kebocoran informasi dari target selama proses pelatihan.
+
+#### ### Pembagian Data
+Implementasi: Dataset dibagi menjadi dua bagian:
+- Training Set (80%): Digunakan untuk melatih model.
+- Test Set (20%): Digunakan untuk mengukur performa model terhadap data yang belum pernah dilihat sebelumnya.
+
+Pembagian dilakukan menggunakan fungsi train_test_split dari library scikit-learn untuk menjaga proporsi kelas secara acak dan merata.
+
 ## Modeling
 Pada tahap ini, saya membandingkan empat model regresi untuk memprediksi jumlah penyewaan sepeda. Evaluasi dilakukan menggunakan Mean Squared Error (MSE) pada data pelatihan. Model dengan nilai MSE terendah akan dipilih sebagai model terbaik.
 

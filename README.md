@@ -117,7 +117,7 @@ Outlier diidentifikasi menggunakan metode Interquartile Range (IQR), yaitu denga
 
 Pembagian ini memastikan model hanya belajar dari fitur dan menghindari kebocoran informasi dari target selama proses pelatihan.
 
-#### ### Pembagian Data
+#### Pembagian Data
 > Implementasi: Dataset dibagi menjadi dua bagian:
 > - Training Set (80%): Digunakan untuk melatih model.
 > - Test Set (20%): Digunakan untuk mengukur performa model terhadap data yang belum pernah dilihat sebelumnya.
